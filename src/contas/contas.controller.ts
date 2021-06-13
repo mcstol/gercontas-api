@@ -1,13 +1,15 @@
-import { Controller, Get } from '@nestjs/common';
-
+import { Body, Controller, Get, Post } from '@nestjs/common';
+import { ContasService } from './contas.service';
 @Controller('contas')
 export class ContasController {
-  primeira = () => {
-    return 'Primeira rota';
-  };
+  constructor(private contasService: ContasService) {}
 
   @Get()
-  getprimeira(): string {
-    return this.primeira();
+  async getListAllContas(): Promise<string> {
+    return this.contasService.listContas();
+  }
+  @Post()
+  async createConta(@Body() data: JSON) {
+    return this.contasService.createConta(data);
   }
 }
