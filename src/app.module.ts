@@ -4,21 +4,20 @@ import { AppService } from './app.service';
 import { ContasModule } from './contas/contas.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './users/users.entity';
-import { Contas } from './contas/contas.entity';
+import { bills } from './models/contas.entity';
+// import { User } from './users/users.entity';
 @Module({
   imports: [
     ContasModule,
-    ConfigModule,
+    ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
-      type: 'postgres',
-      url: process.env.DB_URL,
-      entities: [User, Contas],
-      migrationsTableName: 'custom_migration_table',
-      migrations: ['src/migrations/**/*.ts'],
-      cli: {
-        migrationsDir: process.env.TYPEORM_MIGRATIONS_DIR,
-      },
+      type: 'mysql',
+      host: process.env.TYPEORM_HOST,
+      port: parseInt(process.env.TYPEORM_PORT),
+      username: process.env.TYPEORM_USERNAME,
+      password: process.env.TYPEORM_PASSWORD,
+      database: process.env.TYPEORM_DATABASE,
+      entities: [bills],
     }),
   ],
   controllers: [AppController],
