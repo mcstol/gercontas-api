@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { bills } from 'src/models/contas.entity';
-import { ContaDTO } from '../models/conta.interface';
+import { ContaDTO } from '../views/conta.interface';
 
 @Injectable()
 export class ContasService {
@@ -21,21 +21,21 @@ export class ContasService {
     return this.contasRepository.save(data);
   }
 
-  // async updateCliente(id: string, data: ClienteDTO): Promise<Cliente> {
-  //   await this.clientesRepository.findOneOrFail(id);
-  //   await this.clientesRepository.update(id, data);
-  //   return this.clientesRepository.findOne(id);
-  // }
+  async updateConta(id: string, data: ContaDTO): Promise<bills> {
+    await this.contasRepository.findOneOrFail(id);
+    await this.contasRepository.update(id, data);
+    return this.contasRepository.findOne(id);
+  }
 
-  // async updateDataCliente(id: string, data: ClienteDTO): Promise<Cliente> {
-  //   await this.clientesRepository.findOneOrFail(id);
-  //   await this.clientesRepository.update(id, data);
-  //   return this.clientesRepository.findOne(id);
-  // }
+  async updateDataConta(id: string, data: ContaDTO): Promise<bills> {
+    await this.contasRepository.findOneOrFail(id);
+    await this.contasRepository.update(id, data);
+    return this.contasRepository.findOne(id);
+  }
 
-  // async deleteCliente(id: string): Promise<Cliente> {
-  //   const clienteDestoyer = this.clientesRepository.findOne(id);
-  //   await this.clientesRepository.delete(id);
-  //   return clienteDestoyer;
-  // }
+  async deleteConta(id: string): Promise<bills> {
+    const clienteDestoyer = this.contasRepository.findOne(id);
+    await this.contasRepository.delete(id);
+    return clienteDestoyer;
+  }
 }
